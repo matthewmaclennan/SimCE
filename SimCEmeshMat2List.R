@@ -6,7 +6,7 @@ SimCEmeshMat2List<-function(data){
   rownames(table.b)<-NULL
   list1<-list()
   for(i in 1:nrow(table.b)){
-    list1[[i]]<-data[(table.b[i,2]*(i-1)):(table.b[i,2]*i),]
+    list1[[i]]<-data[(table.b[i,2]*(i-1)+1):(table.b[i,2]*i),]
   }
 list1
 }

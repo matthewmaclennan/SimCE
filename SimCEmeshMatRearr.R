@@ -5,5 +5,8 @@ SimCEmeshMatRearr<-function(data,colname){
   table<-as.matrix(table(data[,2]))
   table.b<-cbind(as.numeric(rownames(table)),table)
   rownames(table.b)<-NULL
-  
+#Assuming the frequencies in table.b are all equal, one can use the matrix rearrangement function
+    peakInt<-matrix(data[,colname],nrow=table.b[1,2])
+#Please do one column at a time for plotting purposes, although [:] ranges do work (automatically cbind)
+  peakmatrix<-rbind(table.b[,1],peakInt)
 }

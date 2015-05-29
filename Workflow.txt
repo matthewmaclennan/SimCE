@@ -1,0 +1,11 @@
+1. Run the au3 script.
+2. Make sure the au3 script only saves a segment of the SimCE3 mesh (in order to reduce file size)
+3. Import the script into R and execute the R scripts (can also be called by autoit):
+      a. read in the asc file with SimCE3meshMatrix.R
+      b. convert matrix into list with SimCE3meshMat2List.R
+      c. create matrices of a single concentration profile using SimCE3meshMatRearr.R
+      d. plot the matrices using image() or persp3d()
+      e. use another plotter which can plot points with the potential for regression
+4. Store results in relevant XML-based format for database
+5. Calculate other properties from this data (K etc...)
+6. Select real molecular candidates based on binding constants (check databases).

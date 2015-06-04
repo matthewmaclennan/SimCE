@@ -8,3 +8,5 @@ r.names<-c("Instrument_Length of Capillary (cm)","Instrument_Length to Detector 
 "Migration Time of A (s)","mu_Viscosity Correction A","mu_Viscosity Correction P","mu_Viscosity Correction C","D_Species A","D_Species P","D_Complex C",
 "Wall_[W] (mol/dm^2)","Wall_Delay After Injection","WA_Adsorption Rate","WA_Desorption Rate","WP_Adsorption Rate",
 "WP_Desorption Rate","WC_Adsorption Rate","WC_Desorption Rate")
+rownames(eg1_PCA_A_1.par)<-r.names
+eg1_PCA_A_1.par

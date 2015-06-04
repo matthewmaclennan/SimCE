@@ -19,30 +19,51 @@ Local $wait = WinWait("[CLASS:Afx:400000:b:10003:6:aad0abd]","",3)
 WinSetState("Untitled","",@SW_MAXIMIZE)
 ; Unfortunately, the form to fill is a BCGToolBar object, so I cannot fill it as per usual. I must resort to mouse clicking. Make sure the SimDCCE2 window fits the screen
 ; but is not maximized. Check the mouse coordinates listed.
-
+; Here will be aloop which reads the appropriate data from a vector.
 MouseClick("left",76,144,2,0)
 Send("+{END}{BS}55.5")
 MouseClick("left",76,160,2,0)
 Send("+{END}{BS}55.6")
 MouseClick("left",76,174,2,0)
 Send("+{END}{BS}55.7")
+; The "save" routine
 Send("^s")
 $hWnd = WinWait("Save As", "")
-ControlSetText($hWnd, "", "[CLASSNN:Edit1]", "Report_" & @YEAR & "-" & @MON & "-" & @MDAY & @HOUR & @MIN & @SEC & ".par")
+ControlSetText($hWnd, "", "[CLASSNN:Edit1]", "D:\SIMCE3\Report_" & @YEAR & "-" & @MON & "-" & @MDAY & @HOUR & @MIN & @SEC & ".par")
 ControlClick($hWnd,"","[CLASSNN:Button2]")
 $mainW = WinWait("Report","")
 ; Click mesh creator button
 ControlClick($mainW,"","[CLASSNN:Button39]")
-; turn on mesh and fill empty places with following numbers
+; turn on mesh and check the data channel boxes.
 ControlClick("3D Mesh","","[CLASSNN:Button3]")
-$wTtl = WinGetTitle($mainW,"")
-ControlSend("3D Mesh","","[CLASSNN:Edit1]",$wTtl)
-ControlClick("3D Mesh","","[CLASSNN:Button1]")
+MouseClick("left",518,356,1,0)
+MouseClick("left",596,356,1,0)
+MouseClick("left",686,356,1,0)
+MouseClick("left",768,356,1,0)
+MouseClick("left",851,356,1,0)
+Local $arrt[6] = [0,10,20,30,40,50]
+; insert a loop here to handle the repeated request for mesh generation. Numbers for the capillary length and time values
+; will be defined as an array here and will essentially determine how many times the values will be looped through. Clicking the
+; stop button will end it.
+For $i = 1 To 5
+   $wTtl = WinGetTitle($mainW,"")
+   ControlClick("3D Mesh","","[CLASSNN:Edit1]")
+   ControlSend("3D Mesh","","[CLASSNN:Edit1]","{DEL}{DEL}{DEL}" & $wTtl & "05" & $arrt[$i] & ($arrt[$i]+1))
+   ControlClick("3D Mesh","","[CLASSNN:Edit4]")
+   ControlSend("3D Mesh","","[CLASSNN:Edit4]","{DEL}{DEL}{DEL}" & 0)
+   ControlClick("3D Mesh","","[CLASSNN:Edit5]")
+   ControlSend("3D Mesh","","[CLASSNN:Edit5]","{DEL}{DEL}{DEL}" & 5)
+   ControlClick("3D Mesh","","[CLASSNN:Edit2]")
+   ControlSend("3D Mesh","","[CLASSNN:Edit2]","{DEL}{DEL}{DEL}" & $arrt[$i])
+   ControlClick("3D Mesh","","[CLASSNN:Edit3]")
+   ControlSend("3D Mesh","","[CLASSNN:Edit3]","{DEL}{DEL}{DEL}" & ($arrt[$i]+1))
+   ControlClick("3D Mesh","","[CLASSNN:Button1]")
 ; Click &START button
-ControlClick($mainW,"","[CLASSNN:Button23]")
+   ControlClick($mainW,"","[CLASSNN:Button23]")
 ; Wait for run to progress
-Sleep(10000)
-; stop run
+   Sleep(10000)
+Next
+; stop run routine
 ControlClick($mainW,"","[CLASSNN:Button24]")
 ; name dialogue box
 $term = WinWait("Termination?","")

@@ -45,18 +45,19 @@ Local $arrt[6] = [0,10,20,30,40,50]
 ; insert a loop here to handle the repeated request for mesh generation. Numbers for the capillary length and time values
 ; will be defined as an array here and will essentially determine how many times the values will be looped through. Clicking the
 ; stop button will end it.
-For $i = 1 To 5
+For $i = 0 To 4
    $wTtl = WinGetTitle($mainW,"")
    ControlClick("3D Mesh","","[CLASSNN:Edit1]")
-   ControlSend("3D Mesh","","[CLASSNN:Edit1]","{DEL}{DEL}{DEL}" & $wTtl & "05" & $arrt[$i] & ($arrt[$i]+1))
+   ControlSend("3D Mesh","","[CLASSNN:Edit1]","^a" & $wTtl & "05" & $arrt[$i] & ($arrt[$i+1]))
    ControlClick("3D Mesh","","[CLASSNN:Edit4]")
-   ControlSend("3D Mesh","","[CLASSNN:Edit4]","{DEL}{DEL}{DEL}" & 0)
+   ControlSend("3D Mesh","","[CLASSNN:Edit4]","^a" & 0)
    ControlClick("3D Mesh","","[CLASSNN:Edit5]")
-   ControlSend("3D Mesh","","[CLASSNN:Edit5]","{DEL}{DEL}{DEL}" & 5)
+   ControlSend("3D Mesh","","[CLASSNN:Edit5]","^a" & 5)
    ControlClick("3D Mesh","","[CLASSNN:Edit2]")
-   ControlSend("3D Mesh","","[CLASSNN:Edit2]","{DEL}{DEL}{DEL}" & $arrt[$i])
+   
+   ControlSend("3D Mesh","","[CLASSNN:Edit2]","^a" & $arrt[$i])
    ControlClick("3D Mesh","","[CLASSNN:Edit3]")
-   ControlSend("3D Mesh","","[CLASSNN:Edit3]","{DEL}{DEL}{DEL}" & ($arrt[$i]+1))
+   ControlSend("3D Mesh","","[CLASSNN:Edit3]","^a" & ($arrt[$i+1]))
    ControlClick("3D Mesh","","[CLASSNN:Button1]")
 ; Click &START button
    ControlClick($mainW,"","[CLASSNN:Button23]")

@@ -1,5 +1,7 @@
 #include <Constants.au3>
 #include <MsgBoxConstants.au3>
+#include <Array.au3>
+#include <File.au3>
 
 #cs ----------------------------------------------------------------------------
 
@@ -19,6 +21,11 @@ Local $wait = WinWait("[CLASS:Afx:400000:b:10003:6:aad0abd]","",3)
 WinSetState("Untitled","",@SW_MAXIMIZE)
 ; Unfortunately, the form to fill is a BCGToolBar object, so I cannot fill it as per usual. I must resort to mouse clicking. Make sure the SimDCCE2 window fits the screen
 ; but is not maximized. Check the mouse coordinates listed.
+; Click the respective "show curves" buttons in order that the data be collected by the mesh operation.
+MouseClick("left",294,305,1,0)
+MouseClick("left",369,305,1,0)
+MouseClick("left",454,305,1,0)
+MouseClick("left",615,305,1,0)
 ; Here will be aloop which reads the appropriate data from a vector.
 MouseClick("left",76,144,2,0)
 Send("+{END}{BS}55.5")
@@ -31,8 +38,8 @@ Send("^s")
 $hWnd = WinWait("Save As", "")
 ControlSetText($hWnd, "", "[CLASSNN:Edit1]", "D:\SIMCE3\Report_" & @YEAR & "-" & @MON & "-" & @MDAY & @HOUR & @MIN & @SEC & ".par")
 ControlClick($hWnd,"","[CLASSNN:Button2]")
-$mainW = WinWait("Report","")
 ; Click mesh creator button
+$mainW = WinWait("Report","")
 ControlClick($mainW,"","[CLASSNN:Button39]")
 ; turn on mesh and check the data channel boxes.
 ControlClick("3D Mesh","","[CLASSNN:Button3]")
@@ -54,7 +61,6 @@ For $i = 0 To 4
    ControlClick("3D Mesh","","[CLASSNN:Edit5]")
    ControlSend("3D Mesh","","[CLASSNN:Edit5]","^a" & 5)
    ControlClick("3D Mesh","","[CLASSNN:Edit2]")
-   
    ControlSend("3D Mesh","","[CLASSNN:Edit2]","^a" & $arrt[$i])
    ControlClick("3D Mesh","","[CLASSNN:Edit3]")
    ControlSend("3D Mesh","","[CLASSNN:Edit3]","^a" & ($arrt[$i+1]))

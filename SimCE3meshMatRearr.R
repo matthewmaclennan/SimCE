@@ -10,3 +10,5 @@ SimCEmeshMatRearr<-function(data,colname){
 #Please do one column at a time for plotting purposes, although [:] ranges do work (automatically cbind)
   peakmatrix<-rbind(table.b[,1],peakInt)
 }
+#####NOTA BENE: the first row of the resulting matrix consists of the time from which the vector data is derived.
+#####For any plots of data alone, omit row 1.
